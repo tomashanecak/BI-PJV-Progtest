@@ -20,7 +20,7 @@ public class StrikeAction extends TroopAction {
 
        if (state.canCapture(origin, target)) {
             result.add(new CaptureOnly(origin, (BoardPos) target));
-        }
+       }
 
         return result;
     }

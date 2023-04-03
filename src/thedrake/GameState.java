@@ -67,9 +67,15 @@ public class GameState {
 
     // Return tile if not occupied by player
     public Tile tileAt(TilePos pos) {
-        if(!board.at(pos).hasTroop())
-            return board.at(pos);
-        return null;
+        TroopTile blue = blueArmy.boardTroops().at(pos).orElse(null);
+        TroopTile orange = orangeArmy.boardTroops().at(pos).orElse(null);
+
+        if(blue != null)
+            return blue;
+        if(orange != null)
+            return orange;
+
+        return board.at(pos);
     }
 
     // Return if move is possible from certain tile
