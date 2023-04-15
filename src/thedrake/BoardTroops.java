@@ -1,8 +1,10 @@
 package thedrake;
 
+import java.io.PrintWriter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class BoardTroops {
+public class BoardTroops implements JSONSerializable {
     private final PlayingSide playingSide;
     private final Map<BoardPos, TroopTile> troopMap;
     private final TilePos leaderPosition;
@@ -151,5 +153,35 @@ public class BoardTroops {
         if(target.equals(leaderPosition))
             return new BoardTroops(playingSide(), newTroops, TilePos.OFF_BOARD, guards);
         return new BoardTroops(playingSide(), newTroops, leaderPosition, guards);
+    }
+
+    @Override
+    public void toJSON(PrintWriter writer) {
+        writer.print("{\"side\":");
+        playingSide().toJSON(writer);
+
+        writer.print(",\"leaderPosition\":");
+        leaderPosition().toJSON(writer);
+
+        writer.print(",\"guards\":" + guards() + ",");
+
+        // This part of code sorts the map so we print it in correct order
+        Comparator<BoardPos> boardPosComparator = Comparator.comparing(BoardPos::column)
+                .thenComparingInt(BoardPos::row);
+
+        Map<BoardPos, TroopTile> sortedTroopMap = new TreeMap<>(boardPosComparator);
+        sortedTroopMap.putAll(troopMap);
+
+        writer.print("\"troopMap\":{");
+        AtomicInteger index = new AtomicInteger();
+        sortedTroopMap.forEach((pos, tile) -> {
+            pos.toJSON(writer);
+            writer.print(":");
+            tile.toJSON(writer);
+            if (index.getAndIncrement() < sortedTroopMap.size() - 1) {
+                writer.print(",");
+            }
+        });
+        writer.print("}}");
     }
 }

@@ -1,11 +1,12 @@
 package thedrake;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import static thedrake.TroopFace.AVERS;
 
-public class TroopTile implements Tile{
+public class TroopTile implements Tile, JSONSerializable {
     private final Troop troop;
     private final PlayingSide side;
     private final TroopFace face;
@@ -57,5 +58,16 @@ public class TroopTile implements Tile{
 // (z rubu na líc nebo z líce na rub)
     public TroopTile flipped(){
         return new TroopTile(troop, side, face == AVERS ? TroopFace.REVERS: AVERS);
+    }
+
+    @Override
+    public void toJSON(PrintWriter writer) {
+        writer.print("{\"troop\":");
+        this.troop().toJSON(writer);
+        writer.print(",\"side\":");
+        this.side().toJSON(writer);
+        writer.print(",\"face\":");
+        this.face().toJSON(writer);
+        writer.print("}");
     }
 }

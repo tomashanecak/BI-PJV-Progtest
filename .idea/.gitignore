@@ -9,3 +9,4 @@
 # Compiled .class files
 /out
 *.class
+vcs.xml

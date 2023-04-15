@@ -1,10 +1,12 @@
 package thedrake;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class Army {
+public class Army implements JSONSerializable {
     private final BoardTroops boardTroops;
     private final List<Troop> stack;
     private final List<Troop> captured;
@@ -77,5 +79,30 @@ public class Army {
         newCaptured.add(troop);
 
         return new Army(boardTroops, stack, newCaptured);
+    }
+
+    @Override
+    public void toJSON(PrintWriter writer) {
+        writer.print("{\"boardTroops\":");
+        boardTroops().toJSON(writer);
+
+        writer.print(",\"stack\":[");
+        AtomicInteger stack_idx = new AtomicInteger();
+        stack.forEach((troop -> {
+            troop.toJSON(writer);
+            if (stack_idx.getAndIncrement() < stack.size() - 1) {
+                writer.print(",");
+            }
+        }));
+
+        writer.print("],\"captured\":[");
+        AtomicInteger captured_idx = new AtomicInteger();
+        captured.forEach((troop -> {
+            troop.toJSON(writer);
+            if (captured_idx.getAndIncrement() < captured.size() - 1) {
+                writer.print(",");
+            }
+        }));
+        writer.print("]}");
     }
 }

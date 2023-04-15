@@ -1,6 +1,8 @@
 package thedrake;
 
-public class Board {
+import java.io.PrintWriter;
+
+public class Board implements JSONSerializable {
     private final BoardTile[][] board;
     private final int dimension;
 
@@ -54,6 +56,26 @@ public class Board {
     // Vytvoří instanci PositionFactory pro výrobu pozic na tomto hracím plánu
     public PositionFactory positionFactory() {
         return new PositionFactory(dimension);
+    }
+
+    @Override
+    public void toJSON(PrintWriter writer) {
+        writer.print("{\"dimension\":" + dimension());
+
+        writer.print(",\"tiles\":[");
+        int numRows = board.length;
+        int numCols = board[0].length;
+        for (int col = 0; col < board[0].length; col++) {
+            for (int row = 0; row < board.length; row++) {
+                board[row][col].toJSON(writer);
+
+                // add comma after every element except for the last element in the last row
+                if (!(row == numRows - 1 && col == numCols - 1)) {
+                    writer.print(",");
+                }
+            }
+        }
+        writer.print("]}");
     }
 
     public static class TileAt {

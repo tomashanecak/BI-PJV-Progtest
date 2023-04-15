@@ -1,4 +1,4 @@
-package main;
+package suite5;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -6,9 +6,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        suite5.TestSuite.class
+        JSONTest.class
 })
 
-public class MainSuite {
+public class TestSuite {
 
 }
