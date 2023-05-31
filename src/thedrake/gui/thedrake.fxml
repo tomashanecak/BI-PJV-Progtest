@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thedrake.gui.MenuController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+         <center>
+            <VBox id="menu" alignment="CENTER" spacing="10">
+               <ImageView fx:id="logoImageView" fitWidth="370" fitHeight="300" />
+               <Button onAction="#handleMultiplayerLocalButton" styleClass="button" text="Hra dvoch hráčov" />
+               <Button onAction="#handleSinglePlayerButton" styleClass="button" text="Hra proti počítaču" />
+               <Button onAction="#handleMultiplayerOnlineButton" styleClass="button" text="Hra po internete" />
+               <Button onAction="#handleExitButton" styleClass="button" text="Koniec" />
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

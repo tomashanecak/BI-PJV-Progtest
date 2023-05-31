@@ -9,5 +9,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="junit" level="project" />
+    <orderEntry type="library" name="openjfx.javafx.controls" level="application" />
+    <orderEntry type="library" name="openjfx.javafx.fxml" level="application" />
   </component>
 </module>
